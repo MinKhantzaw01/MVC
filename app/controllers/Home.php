@@ -1,11 +1,14 @@
 <?php
-class Home{
+class Home extends Controller{
+
+    private $userModel;
     public function __construct()
     {
-        echo "I am a constructor method of " .__CLASS__. " class <br>";
+        $this->userModel=$this->model("UserModel");
     }
-    public function index(){
-        echo "I am a index method of  " .__CLASS__. " class <br>";
+    public function index($data=[]){
+        $data=$this->userModel->getAllUser();
+        $this->view("home/index",$data);
         
     }
     public function show(){
@@ -15,4 +18,4 @@ class Home{
 }
 
 
-?>
+?> 
