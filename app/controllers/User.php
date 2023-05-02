@@ -2,7 +2,7 @@
 class User extends Controller{
     public function __construct()
     {
-        
+        $this->userModel = $this->model('UserModel');
     }
     public function register(){
         if($_SERVER['REQUEST_METHOD']=="POST"){
@@ -22,6 +22,11 @@ class User extends Controller{
             }
             if(empty($data['email'])){
                 $data['email_err']="Email must be supply!";
+            }else{
+                if($this->userModel->getUserByEmail($data['email'])){
+                $data['email_err']="Email must be already taken!";
+
+                }
             }
             if(empty($data['password'])){
                 $data['password_err']="Password must be supply!";
@@ -33,8 +38,14 @@ class User extends Controller{
                     $data['confirm_password_err']="Password do not match";
                 }
             }
+       
             if(empty($data['name_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
-                echo "Already Good!";
+                if($this->userModel->register($data['name'],$data['email'],$data['password'])){
+                    flash('register_success',"Register success,Please login!");
+                    $this->view("user/login");
+                }else{
+                    $this->view("user/register");
+                }
             }else{
                 $this->view("user/register",$data);
             }
@@ -60,7 +71,20 @@ class User extends Controller{
                 $data['password_err']="Password must be supply!";
             }
             if(empty($data['email_err']) && empty($data['password_err'])){
-                echo "Already Good!";
+                $rowUser=$this->userModel->getUserByEmail($data['email']);
+                if($rowUser){
+                    $hash_pass=$rowUser->password;
+                    if(password_verify($data['password'],$hash_pass)){
+                        setUserSession($rowUser);
+                        redirect(URLROOT.'admin/home');
+                    }else{
+                        flash('login_fail',"User Creditial  Error!");
+                        $this->view("user/login");
+
+                    }
+                }else{
+                    $data['email_err']="Email Errors!";
+                }
             }else{
                 $this->view("user/login",$data);
             }
@@ -68,6 +92,10 @@ class User extends Controller{
         $this->view("user/login");
 
         }
+    }
+    public function logout(){
+        unsetUserSession();
+        $this->view('home/index');
     }
 }
 

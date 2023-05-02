@@ -16,11 +16,23 @@
         <li class="nav-item">
           <a class="nav-link text-white english" href="#">Features</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white english" href="<?php echo URLROOT."user/register";  ?>">Register</a>
-        </li>     
-        <li class="nav-item">
-          <a class="nav-link text-white english" href="<?php echo URLROOT."user/login";  ?>">Login</a>
+      
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle text-white english" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <?php  if(getUserSession()!=false): ?>
+              <?php echo getUserSession()->name; ?>
+            <?php else :?>
+            Member
+            <?php endif; ?>
+          </a>
+          <ul class="dropdown-menu">
+          <?php  if(getUserSession()!=false): ?>
+            <li><a class="dropdown-item" href="<?php echo URLROOT."user/logout";  ?>">Logout</a></li>
+            <?php else :?>
+            <li><a class="dropdown-item" href="<?php echo URLROOT."user/login";  ?>">Login</a></li>
+            <li><a class="dropdown-item" href="<?php echo URLROOT."user/register";  ?>">Register</a></li>
+            <?php endif; ?>
+          </ul>
         </li>
         <li class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle text-white english" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
