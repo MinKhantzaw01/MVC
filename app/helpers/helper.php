@@ -4,6 +4,24 @@ session_start();
 function redirect($page){
     header("Location:".$page);
 }
+function setCurrentId($value){
+    if(isset($_SESSION['cutId'])){
+        unset($_SESSION['curId']);
+    }
+    $_SESSION['curId']=$value;
+}
+
+function getCurrentId(){
+    if(isset($_SESSION['cutId'])){
+        return $_SESSION['curId'];
+    }
+}
+
+function deleteCurrentId(){
+    if(isset($_SESSION['curId'])){
+        unset($_SESSION['curId']);
+    }
+}
 
 function flash($name='',$message=''){
     if(!empty($name)){
