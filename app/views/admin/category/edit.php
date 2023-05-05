@@ -17,7 +17,7 @@
                             <span><?php echo $cat->name?></span>
                             <span>
                             <a href="<?php echo URLROOT.'category/edit/'.$cat->id;    ?>"><i class="fa fa-edit text-warning"></i></a>
-                            <a href="#"><i class="fa fa-trash text-danger"></i></a></span>
+                            <a href="<?php echo URLROOT.'category/delete/'.$cat->id;    ?>"><i class="fa fa-trash text-danger"></i></a></span>
                         </li>
                         <?php endforeach; ?>
                     </ul>
@@ -36,7 +36,8 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Category Name</label>
                         <input type="text" class="form-control rounded-0 <?php echo !empty($data["name
-                        _err"]) ? 'is-invalid' : '';?>" id="name" name="name" value="<?php echo $data['currentCat']->name;?>" >
+                        _err"]) ? 'is-invalid' : '';?>" id="name" name="name" value="<?php echo $data['currentCat']->name  ?>" >
+                        
                         <span class="text-danger"><?php echo !empty($data["name_err"]) ? $data["name_err"] : '';?></span>
                     </div>
                         <div style="float:right;">

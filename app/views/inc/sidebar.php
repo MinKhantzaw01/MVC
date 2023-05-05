@@ -11,7 +11,7 @@
                             <a href="<?php echo URLROOT . 'category/create'; ?>" class="text-info" style="text-decoration: none;">Category</a>
                         </li>
                         <li class="list-group-item rounded-0">
-                            <a href="<?php echo URLROOT . 'category/home'; ?>" class="text-info" style="text-decoration: none;">Post</a>
+                            <a href="<?php echo URLROOT . 'post/home/1'; ?>" class="text-info" style="text-decoration: none;">Post</a>
                         </li>
                         <li class="list-group-item rounded-0">
                             <a href="<?php echo URLROOT . 'category/home'; ?>" class="text-info" style="text-decoration: none;">Edit</a>

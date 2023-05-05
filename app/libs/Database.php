@@ -16,17 +16,24 @@ class Database{
             PDO::ATTR_PERSISTENT=>true,
             PDO::ATTR_ERRMODE=> PDO::ERRMODE_EXCEPTION
         ];
-        try{
+        try
+        {
             $this->dbh=new PDO($dbc,$this->dbuser,$this->dbpass,$option);
-        }catch(Exception $e){
+        }catch(Exception $e)
+        {
            exit($e->getMessage()) ;
         }
     }
-    public function query($qry){
+
+    public function query($qry)
+    {
         $this->stmt=$this->dbh->prepare($qry);
     }
-    public function bind($param,$value,$type=""){
-        if(empty($type)){
+
+    public function bind($param,$value,$type="")
+    {
+        if(empty($type))
+        {
             switch($value){
                 case is_int($value):
                     $type=PDO::PARAM_INT;
@@ -44,21 +51,31 @@ class Database{
         }
         $this->stmt->bindValue($param,$value,$type);
     }
-    public function execute(){
+
+    public function execute()
+    {
         return $this->stmt->execute();
     }
-    public function multipleSet(){
+
+    public function multipleSet()
+    {
         $this->stmt->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    public function singleSet(){
+
+    public function singleSet()
+    {
         $this->stmt->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
-    public function rowCount(){
+
+    public function rowCount()
+    {
         return $this->stmt->rowCount();
     }
-    public function lastInsertId(){
+
+    public function lastInsertId()
+    {
         return $this->dbh->lastInsertId();
     }
 }

@@ -17,7 +17,7 @@
                             <span><?php echo $cat->name?></span>
                             <span>
                             <a href="<?php echo URLROOT .'category/edit/'.$cat->id  ?>"><i class="fa fa-edit text-warning"></i></a>
-                            <a href="#"><i class="fa fa-trash text-danger"></i></a></span>
+                            <a href="<?php echo URLROOT.'category/delete/'.$cat->id;    ?>"><i class="fa fa-trash text-danger"></i></a></span>
                         </li>
                         <?php endforeach; ?>
                     </ul>

@@ -1,11 +1,16 @@
 <?php
-class User extends Controller{
+class User extends Controller
+{
     public function __construct()
     {
         $this->userModel = $this->model('UserModel');
     }
-    public function register(){
-        if($_SERVER['REQUEST_METHOD']=="POST"){
+
+    public function register()
+    {
+
+        if($_SERVER['REQUEST_METHOD']=="POST")
+        {
             $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data=[
                 "name"=>$_POST['name'],
@@ -17,46 +22,65 @@ class User extends Controller{
                 "password_err"=>'',
                 "confirm_password_err"=>''
             ];
-            if(empty($data['name'])){
+
+            if(empty($data['name']))
+            {
                 $data['name_err']="User Name must be supply!";
             }
-            if(empty($data['email'])){
+
+            if(empty($data['email']))
+            {
                 $data['email_err']="Email must be supply!";
-            }else{
-                if($this->userModel->getUserByEmail($data['email'])){
+            } else {
+
+                if($this->userModel->getUserByEmail($data['email']))
+                {
                 $data['email_err']="Email must be already taken!";
 
                 }
             }
-            if(empty($data['password'])){
+
+            if(empty($data['password']))
+            {
                 $data['password_err']="Password must be supply!";
             }
-            if(empty($data['confirm_password'])){
+
+            if(empty($data['confirm_password']))
+            {
                 $data['confirm_password_err']="Confirm_password must be supply!";
-            }else{
-                if($data['password'] != $data['confirm_password']){
+            } else {
+
+                if($data['password'] != $data['confirm_password'])
+                {
                     $data['confirm_password_err']="Password do not match";
                 }
             }
        
-            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
-                if($this->userModel->register($data['name'],$data['email'],$data['password'])){
+            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err']))
+            {
+
+                if($this->userModel->register($data['name'],$data['email'],$data['password']))
+                {
                     flash('register_success',"Register success,Please login!");
                     $this->view("user/login");
-                }else{
+                } else {
                     $this->view("user/register");
                 }
-            }else{
+            } else {
                 $this->view("user/register",$data);
             }
-        }else{
+        } else {
         $this->view("user/register");
 
         }
       
     }
-    public function login(){
-        if($_SERVER['REQUEST_METHOD']=="POST"){
+
+    public function login()
+    {
+        
+        if($_SERVER['REQUEST_METHOD']=="POST")
+        {
             $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data=[
                 "email"=>$_POST['email'],
@@ -64,36 +88,43 @@ class User extends Controller{
                 "email_err"=>'',
                 "password_err"=>''
             ];
-            if(empty($data['email'])){
+            if(empty($data['email']))
+            {
                 $data['email_err']="Email must be supply!";
             }
-            if(empty($data['password'])){
+
+            if(empty($data['password']))
+            {
                 $data['password_err']="Password must be supply!";
             }
-            if(empty($data['email_err']) && empty($data['password_err'])){
+
+            if(empty($data['email_err']) && empty($data['password_err']))
+            {
                 $rowUser=$this->userModel->getUserByEmail($data['email']);
                 if($rowUser){
                     $hash_pass=$rowUser->password;
                     if(password_verify($data['password'],$hash_pass)){
                         setUserSession($rowUser);
                         redirect(URLROOT.'admin/home');
-                    }else{
+                    } else {
                         flash('login_fail',"User Creditial  Error!");
                         $this->view("user/login");
 
                     }
-                }else{
+                } else {
                     $data['email_err']="Email Errors!";
                 }
-            }else{
+            } else {
                 $this->view("user/login",$data);
             }
-        }else{
+        } else {
         $this->view("user/login");
 
         }
     }
-    public function logout(){
+
+    public function logout()
+    {
         unsetUserSession();
         $this->view('home/index');
     }

@@ -1,7 +1,7 @@
 <div class="container-fluid bg-dark">
 <nav class="container navbar navbar-expand-lg bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand text-white english" href="#">
+    <a class="navbar-brand text-white english" href="<?php echo URLROOT  ?>">
         <img src="<?php echo URLROOT."assets/imgs/Logo.jpg"; ?>" alt="" width="30px" height="30px" class="rounded">
         <span style="margin-left: 1rem; font-weight: bolder;">P . . . K . . . T</span>
     </a>
@@ -10,9 +10,11 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarNavDropdown">
       <ul class="navbar-nav" style="margin-left:auto">
+      <?php  if(getUserSession()) :    ?>
         <li class="nav-item">
-          <a class="nav-link text-white english" aria-current="page" href="#">Home</a>
+          <a class="nav-link text-white english" aria-current="page" href="<?php echo URLROOT.'admin/home';    ?>">Admin Pannel</a>
         </li>
+        <?php  endif;  ?>
         <li class="nav-item">
           <a class="nav-link text-white english" href="#">Features</a>
         </li>
