@@ -3,6 +3,7 @@
 
 <div class="container-fluid">
     <div class="container my-4">
+        <?php flash("del_suc"); ?>
         <a href="<?php echo URLROOT.'post/create';  ?>" class="btn btn-primary mb-3 text-black">Create</a>
         <div class="row">
             <div class="col-md-4">
@@ -23,11 +24,11 @@
                         <?php echo $post->title; ?>
                     </div>
                     <div class="card-body p-2">
-                    <p><?php echo $post->desc;  ?></p>
+                    <p><?php echo $post->description;  ?></p>
                         <div class="row justify-content-end">
-                            <button class="btn btn-success btn-sm text-white" style="width: 80px;">Details</button>
-                            <button class="btn btn-warning btn-sm text-white" style="width: 80px;margin-left: 10px;">Edit</button>
-                            <button class="btn btn-danger btn-sm text-white" style="width: 80px;margin-left: 10px;margin-right: 10px;">Delete</button>
+                            <a href="<?php  echo URLROOT."post/show/".$post->id;?>" class="btn btn-success btn-sm text-white" style="width: 80px;">Details</a>
+                            <a href="<?php  echo URLROOT."post/edit/".$post->id;?>" class="btn btn-warning btn-sm text-white" style="width: 80px;margin-left: 10px;">Edit</a>
+                            <a href="<?php  echo URLROOT."post/delete/".$post->id;?>" class="btn btn-danger btn-sm text-white" style="width: 80px;margin-left: 10px;margin-right: 10px;">Delete</a>
                         </div>
                     </div>
                 </div>
