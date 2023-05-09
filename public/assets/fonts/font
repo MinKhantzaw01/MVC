@@ -1,0 +1,8 @@
+@font-face {
+    font-family: TempestaSevenCondensed;
+    src: url("../fonts/pf_tempesta_seven_condensed.eot") /* EOT file for IE */
+}
+@font-face {
+    font-family: TempestaSevenCondensed;
+    src: url("../fonts/pf_tempesta_seven_condensed.ttf") /* TTF file for CSS3 browsers */
+}
